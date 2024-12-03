@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>민순이</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>내 이름은 민순</h1>
+
+    <div class="themebgm-Container">
+        <audio id="themebgm" loop></audio>
+        <button onclick="playMusic()" id="playButton" class="playButton">배경음악 재생</button>
+        <button onclick="stopMusic()" id="stopButton">배경음악 정지</button>
+        <button onclick="" id="toggle-voice">읽어주기 기능</button>
+    </div>
+
+    <!-- 스타일 선택 -->
+    <div class="select-style">
+        <label for="style">대화 스타일 선택</label>
+        <select id="style">
+            <option value="basic">기본</option>
+            <option value="horror">공포</option>
+            <option value="friendly">개구쟁이</option>
+            <option value="christmas">크리스마스</option>
+        </select>
+    </div>
+
+    <div id="chat-container"></div>
+
+    <div class="input-container">
+        <input type="text" id="keywords" placeholder="무엇이든 질문해보세요..." required />
+        <button id="send-button" onclick="chatGPT()">입력</button>
+    </div>
+
+    <div id="loading">
+        <img src="https://studentrights.sen.go.kr/images/common/loading.gif" />
+    </div>
+
+    <script src="index.js"></script>
+</body>
+
+</html>
