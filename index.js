@@ -15,6 +15,7 @@ document.getElementById('style').addEventListener('change', function () {
     const h1Element = document.querySelector('h1');
     const selectedStyle = this.value;
     const thememusictrack = {
+        basic: 'base_music/basic.mp3',
         horror: 'base_music/horror.mp3',
         friendly: 'base_music/friendly.mp3',
         christmas: 'base_music/christmas.mp3'
