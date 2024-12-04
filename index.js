@@ -9,6 +9,12 @@ document.getElementById('keywords').addEventListener('keydown', function (event)
     }
 });
 
+document.getElementById('input_key').addEventListener('keydown', function (evnet) {
+    if (event.key === 'Enter') {
+        const api_key = document.getElementById("input_key").value;
+        return api_key;
+    }
+})
 
 
 // 테마 변경 및 크리스마스 테마 선택 시 h1 변경 
@@ -16,7 +22,6 @@ document.getElementById('style').addEventListener('change', function () {
     const h1Element = document.querySelector('h1');
     const selectedStyle = this.value;
     const thememusictrack = {
-        basic: 'base_music/basic.mp3',
         horror: 'base_music/horror.mp3',
         friendly: 'base_music/friendly.mp3',
         christmas: 'base_music/christmas.mp3'
@@ -41,6 +46,15 @@ document.getElementById('style').addEventListener('change', function () {
     }
 });
 
+document.getElementById('bgmToggle').addEventListener('change', function () {
+    const toggle = document.getElementById('themebgm');
+    if (this.checked) {
+        playMusic();
+    } else if (!this.checked) {
+        stopMusic();
+    }
+})
+
 function playMusic() {
     const audio = document.getElementById('themebgm');
     audio.play();
@@ -51,16 +65,16 @@ function stopMusic() {
     audio.pause();
 }
 
-// 키 입력 함수
 function test123() {
     const api_key = document.getElementById("input_key").value;
     return api_key;
+
 }
+
+
 
 function chatGPT() {
     const api_key = test123();
-
-    console.log(api_key)
 
     const keywords = document.getElementById('keywords').value;
     if (!keywords.trim()) return;  // Prevent sending empty messages
@@ -129,10 +143,9 @@ function chatGPT() {
 
 let isVoiceEnabled = true; // 음성 출력 활성화 여부
 
-document.getElementById('toggle-voice').addEventListener('click', () => {
+document.getElementById('readToggle').addEventListener('change', function () {
     isVoiceEnabled = !isVoiceEnabled;
     const button = document.getElementById('toggle-voice');
-    button.textContent = isVoiceEnabled ? "음성 출력: 활성화" : "음성 출력: 비활성화";
 });
 
 function appendMessage(message, type) {
@@ -155,10 +168,77 @@ function speakMessage(message) {
     if ('speechSynthesis' in window) {
         const utterance = new SpeechSynthesisUtterance(message);
         utterance.lang = 'ko-KR'; // 한국어 설정
-        utterance.rate = 0.8; // 말하기 속도 (0.1 ~ 10)
+        utterance.rate = 1.0; // 말하기 속도 (0.1 ~ 10)
         utterance.pitch = 0; // 톤 (0 ~ 2)
         speechSynthesis.speak(utterance);
     } else {
         console.warn('이 브라우저는 음성 합성을 지원하지 않습니다.');
     }
+}
+
+
+// 모달 열기
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.body.classList.add('modal-active');
+}
+
+// 모달 닫기
+function closeModal() {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => modal.style.display = 'none');
+    document.getElementById('modal-overlay').style.display = 'none';
+    document.body.classList.remove('modal-active');
+}
+
+// 로그인에서 회원가입으로 전환
+function switchToSignup() {
+    closeModal();
+    openModal('signup-modal');
+}
+
+// 회원가입에서 로그인으로 전환
+function switchToLogin() {
+    closeModal();
+    openModal('login-modal');
+}
+
+// 로그인 기능
+function login() {
+    const username = document.getElementById('login-username').value;
+    const password = document.getElementById('login-password').value;
+
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(user => user.username === username && user.password === password);
+
+    if (user) {
+        alert('로그인 성공!');
+        closeModal();
+        // 로그인 후 추가 작업 수행
+    } else {
+        alert('잘못된 사용자명 또는 비밀번호입니다.');
+    }
+}
+
+// 회원가입 기능
+function signup() {
+    const username = document.getElementById('signup-username').value;
+    const password = document.getElementById('signup-password').value;
+
+    if (!username || !password) {
+        alert('모든 필드를 채워주세요.');
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    if (users.some(user => user.username === username)) {
+        alert('이미 존재하는 사용자명입니다.');
+        return;
+    }
+
+    users.push({ username, password });
+    localStorage.setItem('users', JSON.stringify(users));
+    alert('회원가입 성공! 로그인해주세요.');
+    switchToLogin();
 }
