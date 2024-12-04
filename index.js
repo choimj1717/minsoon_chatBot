@@ -10,6 +10,7 @@ document.getElementById('keywords').addEventListener('keydown', function (event)
 });
 
 
+
 // 테마 변경 및 크리스마스 테마 선택 시 h1 변경 
 document.getElementById('style').addEventListener('change', function () {
     const h1Element = document.querySelector('h1');
@@ -50,8 +51,16 @@ function stopMusic() {
     audio.pause();
 }
 
+// 키 입력 함수
+function test123() {
+    const api_key = document.getElementById("input_key").value;
+    return api_key;
+}
+
 function chatGPT() {
-    const api_key = "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";  // <- API KEY 입력
+    const api_key = test123();
+
+    console.log(api_key)
 
     const keywords = document.getElementById('keywords').value;
     if (!keywords.trim()) return;  // Prevent sending empty messages

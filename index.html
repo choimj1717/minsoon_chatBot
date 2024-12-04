@@ -11,12 +11,22 @@
 <body>
     <h1>내 이름은 민순</h1>
 
+    <span>
+        <button>로그인</button>
+    </span>
+
     <div class="themebgm-Container">
         <audio id="themebgm" loop></audio>
         <button onclick="playMusic()" id="playButton" class="playButton">배경음악 재생</button>
         <button onclick="stopMusic()" id="stopButton">배경음악 정지</button>
         <button onclick="" id="toggle-voice">읽어주기 기능</button>
     </div>
+
+    <div>
+        <input type="text" placeholder="api_key 입력" style="padding: 8px;" id="input_key">
+        <button onclick="test123()" autofocus>전송</button>
+    </div>
+
 
     <!-- 스타일 선택 -->
     <div class="select-style">
