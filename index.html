@@ -11,11 +11,20 @@
 <body>
     <h1>내 이름은 민순</h1>
 
-    <div class="themebgm-Container">
-        <audio id="themebgm" loop></audio>
-        <button onclick="playMusic()" id="playButton" class="playButton">배경음악 재생</button>
+    <div class="themebgmToggle">
+        <audio id="themebgm" loop autoplay></audio>
+        <span>배경음악</span>
+        <label>
+            <input type="checkbox" onchange="playMusic()" id="bgmToggle" checked>
+        </label>
+        <span class="readSpan">읽어주기</span>
+        <label>
+            <input type="checkbox" onchange="" id="readToggle" checked>
+        </label>
+        
+        <!-- <button onclick="playMusic()" id="playButton" class="playButton">배경음악 재생</button>
         <button onclick="stopMusic()" id="stopButton">배경음악 정지</button>
-        <button onclick="" id="toggle-voice">읽어주기 기능</button>
+        <button onclick="" id="toggle-voice">읽어주기 기능</button> -->
     </div>
 
     <!-- 스타일 선택 -->

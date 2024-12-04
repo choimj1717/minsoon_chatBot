@@ -39,6 +39,15 @@ document.getElementById('style').addEventListener('change', function () {
     }
 });
 
+document.getElementById('bgmToggle').addEventListener('change' , function() {
+    const toggle = document.getElementById('themebgm');
+    if(this.checked) {
+        playMusic();
+    } else if (!this.checked){
+        stopMusic();
+    }
+}) 
+
 function playMusic() {
     const audio = document.getElementById('themebgm');
     audio.play();
@@ -119,10 +128,9 @@ function chatGPT() {
 
 let isVoiceEnabled = true; // 음성 출력 활성화 여부
 
-document.getElementById('toggle-voice').addEventListener('click', () => {
+document.getElementById('readToggle').addEventListener('change', function() {
     isVoiceEnabled = !isVoiceEnabled;
     const button = document.getElementById('toggle-voice');
-    button.textContent = isVoiceEnabled ? "음성 출력: 활성화" : "음성 출력: 비활성화";
 });
 
 function appendMessage(message, type) {
@@ -145,10 +153,11 @@ function speakMessage(message) {
     if ('speechSynthesis' in window) {
         const utterance = new SpeechSynthesisUtterance(message);
         utterance.lang = 'ko-KR'; // 한국어 설정
-        utterance.rate = 0.8; // 말하기 속도 (0.1 ~ 10)
+        utterance.rate = 1.0; // 말하기 속도 (0.1 ~ 10)
         utterance.pitch = 0; // 톤 (0 ~ 2)
         speechSynthesis.speak(utterance);
     } else {
         console.warn('이 브라우저는 음성 합성을 지원하지 않습니다.');
     }
 }
+

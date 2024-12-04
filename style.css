@@ -26,6 +26,13 @@ body.horror #chat-container {
     background-color: black;
 }
 
+
+
+body.horror [type="checkbox"]:checked {
+    background-color: red;
+    border-color: red;
+}
+
 body.horror h1 {
     font-family: 'YoonChildfundkoreaMinGuk';
     color: red;
@@ -36,9 +43,19 @@ body.horror .select-style {
     color: red;
 }
 
-body.horror .user-message {
+body.horror .user-message{
     font-family: 'YoonChildfundkoreaMinGuk';
     background-color: #ffffff;
+}
+
+body.horror span{
+    font-family: 'YoonChildfundkoreaMinGuk';
+    color: red;
+} 
+
+body.horror [type="checkbox"]:checked::before {
+    background-color: black;
+    left: 1em;
 }
 
 body.horror .bot-message {
@@ -60,6 +77,21 @@ body.horror button:hover {
 /* 개구쟁이 테마 */
 body.friendly .select-style {
     font-family: 'HSYuji-Regular';
+}
+
+body.friendly [type="checkbox"]:checked {
+    background-color: #fff78d;
+    border-color: #fff78d;
+}
+
+body.friendly [type="checkbox"]:checked::before {
+    background-color: #3db370;
+    left: 1em;
+}
+
+body.friendly span {
+    font-family: 'HSYuji-Regular';
+    color: black;
 }
 
 body.friendly,
@@ -95,7 +127,6 @@ body.friendly button:hover {
 
 body.christmas,
 body.christmas #chat-container {
-
     background-color: #034f1b;
     color: #ceac5c;
 }
@@ -104,6 +135,21 @@ body.christmas #chat-container {
 body.christmas .bot-message {
     background-color: #034f1b;
     font-family: 'KimjungchulScript-Bold';
+}
+
+body.christmas [type="checkbox"]:checked {
+    background-color: #e6dcb1;
+    border-color: #e6dcb1   ;
+}
+
+body.christmas span{
+    font-family: 'KimjungchulScript-Bold';
+    color: #e6dcb1;
+}
+
+body.christmas [type="checkbox"]:checked::before {
+    background-color: #034f1b;
+    left: 1em;
 }
 
 body.christmas .select-style {
@@ -194,7 +240,7 @@ h1 {
     text-align: left;
 }
 
-.themebgm-Container {
+.themebgmToggle {
     display: flex;
     margin: 0 auto;
     width: 100%;
@@ -254,4 +300,70 @@ select {
     margin-top: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+}
+
+label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+[type="checkbox"] {
+    appearance: none;
+}
+
+[type="checkbox"] {
+    appearance: none;
+    position: relative;
+    border: max(2px, 0.1em) solid gray;
+    border-radius: 1.25em;
+    width: 2.25em;
+    height: 1.25em;
+}
+
+[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    transform: scale(0.8);
+    background-color: gray;
+    transition: left 250ms linear;
+}
+
+[type="checkbox"]:checked::before {
+    background-color: white;
+    left: 1em;
+}
+
+[type="checkbox"]:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+[type="checkbox"]:enabled:hover {
+    box-shadow: 0 0 0 max(4px, 0.2em) lightgray;
+}
+
+[type="checkbox"]::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    transform: scale(0.8);
+    background-color: gray;
+    transition: left 250ms linear;
+}
+
+span {
+    color: black;
+}
+
+.readSpan{
+    margin-left: 10px;
 }
