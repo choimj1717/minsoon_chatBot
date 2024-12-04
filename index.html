@@ -4,28 +4,57 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>민순이</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <h1>내 이름은 민순</h1>
 
+
+
     <div class="themebgmToggle">
         <audio id="themebgm" loop autoplay></audio>
-        <span>배경음악</span>
-        <label>
-            <input type="checkbox" onchange="playMusic()" id="bgmToggle" checked>
-        </label>
-        <span class="readSpan">읽어주기</span>
-        <label>
-            <input type="checkbox" onchange="" id="readToggle" checked>
-        </label>
+        <div>
+            <span>배경음악</span>
+            <label>
+                <input type="checkbox" onchange="playMusic()" id="bgmToggle" checked>
+            </label>
+            <span class="readSpan">읽어주기</span>
+            <label>
+                <input type="checkbox" onchange="" id="readToggle" checked class="readToggle">
+            </label>
+        </div>
         
-        <!-- <button onclick="playMusic()" id="playButton" class="playButton">배경음악 재생</button>
-        <button onclick="stopMusic()" id="stopButton">배경음악 정지</button>
-        <button onclick="" id="toggle-voice">읽어주기 기능</button> -->
+        <div class="api-key-input">
+            <input type="text" placeholder="api_key 입력" style="padding: 8px;" id="input_key" >
+        </div>
+        <!-- 로그인 버튼 -->
+        <button onclick="openModal('login-modal')" class="loginBtn">로그인</button>
+
+        <!-- 모달 배경 -->
+        <div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
+
+        <!-- 로그인 모달 -->
+        <div class="modal" id="login-modal">
+            <h1>로그인</h1>
+            <input type="text" id="login-username" placeholder="아이디" required>
+            <input type="password" id="login-password" placeholder="비밀번호" required>
+            <button onclick="login()">로그인</button>
+            <p>아직 계정이 없으신가요? <a onclick="switchToSignup()">회원가입</a></p>
+        </div>
+
+        <!-- 회원가입 모달 -->
+        <div class="modal hidden" id="signup-modal">
+            <h1>회원가입</h1>
+            <input type="text" id="signup-username" placeholder="아이디" required>
+            <input type="password" id="signup-password" placeholder="비밀번호" required>
+            <button onclick="signup()">회원가입</button>
+            <p>이미 계정이 있으신가요? <a onclick="switchToLogin()">로그인</a></p>
+        </div>
     </div>
+
+    
 
     <!-- 스타일 선택 -->
     <div class="select-style">
