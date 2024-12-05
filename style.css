@@ -443,10 +443,6 @@ span {
     text-decoration: underline;
 }
 
-/* 숨김 처리 */
-.hidden {
-    display: none;
-}
 
 .modal input {
     width: 330px;
