@@ -30,7 +30,7 @@
             <input type="text" placeholder="api_key 입력" style="padding: 8px;" id="input_key" >
         </div>
         <!-- 로그인 버튼 -->
-        <button onclick="openModal('login-modal')" class="loginBtn">로그인</button>
+        <button onclick="openModal('login-modal')" class="loginModal" id="loginModal">로그인</button>
 
         <!-- 모달 배경 -->
         <div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
@@ -78,7 +78,9 @@
         <img src="https://studentrights.sen.go.kr/images/common/loading.gif" />
     </div>
 
-    <script src="index.js"></script>
+
+    <!-- <script type="modual" src="firebase.js"></script> -->
+    <script type="modual" src="index.js"></script>
 </body>
 
 </html>

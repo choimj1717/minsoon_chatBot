@@ -9,13 +9,12 @@ document.getElementById('keywords').addEventListener('keydown', function (event)
     }
 });
 
-document.getElementById('input_key').addEventListener('keydown', function(evnet) {
+document.getElementById('input_key').addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         const api_key = document.getElementById("input_key").value;
-        return api_key;
+        console.log(api_key); // 값을 처리하거나 다른 방법으로 사용할 수 있음
     }
-})
-
+});
 
 // 테마 변경 및 크리스마스 테마 선택 시 h1 변경 
 document.getElementById('style').addEventListener('change', function () {
@@ -25,11 +24,12 @@ document.getElementById('style').addEventListener('change', function () {
         horror: 'base_music/horror.mp3',
         friendly: 'base_music/friendly.mp3',
         christmas: 'base_music/christmas.mp3'
-    }
+    };
 
     const audio = document.getElementById('themebgm');
     audio.src = thememusictrack[selectedStyle];
     audio.load();
+
     // 테마 클래스 제거 및 새 클래스 추가
     document.body.classList.remove('basic', 'horror', 'friendly', 'christmas');
     document.body.classList.add(selectedStyle);
@@ -40,7 +40,7 @@ document.getElementById('style').addEventListener('change', function () {
 
     // 헤더 텍스트 변경
     if (selectedStyle === 'christmas') {
-        h1Element.textContent = 'Merry Christmas'
+        h1Element.textContent = 'Merry Christmas';
     } else {
         h1Element.textContent = '내 이름은 민순';
     }
@@ -53,7 +53,7 @@ document.getElementById('bgmToggle').addEventListener('change', function () {
     } else if (!this.checked) {
         stopMusic();
     }
-})
+});
 
 function playMusic() {
     const audio = document.getElementById('themebgm');
@@ -66,16 +66,12 @@ function stopMusic() {
 }
 
 function test123() {
-        const api_key = document.getElementById("input_key").value;
-        return api_key;
-    
+    const api_key = document.getElementById("input_key").value;
+    return api_key;
 }
-
-
 
 function chatGPT() {
     const api_key = test123();
-
     const keywords = document.getElementById('keywords').value;
     if (!keywords.trim()) return;  // Prevent sending empty messages
 
@@ -88,14 +84,14 @@ function chatGPT() {
     let prompt = '';
 
     if (selectedStyle === 'basic') {
-        prompt = "\n\n지금부터 너의 이름은 민순이이고 기본적인 너의 모습대로 말을 해:\n"
+        prompt = "\n\n지금부터 너의 이름은 민순이이고 기본적인 너의 모습대로 말을 해:\n";
     } else if (selectedStyle === 'horror') {
         prompt = "\n\n지금부터 너의 이름은 민순이이고 아래 지침을 따르며 대답합니다:\n"
             + "1. 상대에게 공포감을 줄 수 있게 말을 해\n"
             + "3. 어둠 등과 같이 소설 속에서나 쓸 법한 단어는 쓰지 마"
             + "4. 무섭고 스산한 분위기를 잡아서 말을 해.\n"
-            + "5. 40글자 미만으로 말을 해.\n";
-        + "6. 소설처럼 말하지 마\n"
+            + "5. 40글자 미만으로 말을 해.\n"
+            + "6. 소설처럼 말하지 마\n";
     } else if (selectedStyle === 'friendly') {
         prompt = "\n\n지금부터 너의 이름은 민순이이고 아래 지침을 따르며 대답합니다:\n"
             + "1. 말 안듣는 아이처럼 말해줘.\n"
@@ -146,6 +142,7 @@ let isVoiceEnabled = true; // 음성 출력 활성화 여부
 document.getElementById('readToggle').addEventListener('change', function () {
     isVoiceEnabled = !isVoiceEnabled;
     const button = document.getElementById('toggle-voice');
+    button.textContent = isVoiceEnabled ? '음성 끄기' : '음성 켜기'; // 버튼 텍스트 변경
 });
 
 function appendMessage(message, type) {
@@ -157,7 +154,6 @@ function appendMessage(message, type) {
 
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
-
     // 음성 출력 기능 활성화 상태에서만 작동
     if (type === 'bot-message' && isVoiceEnabled) {
         speakMessage(message);
@@ -167,81 +163,4 @@ function appendMessage(message, type) {
 function speakMessage(message) {
     if ('speechSynthesis' in window) {
         const utterance = new SpeechSynthesisUtterance(message);
-        utterance.lang = 'ko-KR'; // 한국어 설정
-        utterance.rate = 1.0; // 말하기 속도 (0.1 ~ 10)
-        utterance.pitch = 0; // 톤 (0 ~ 2)
-        speechSynthesis.speak(utterance);
-    } else {
-        console.warn('이 브라우저는 음성 합성을 지원하지 않습니다.');
-    }
-}
-
-
-// 모달 열기
-function openModal(modalId) {
-    document.getElementById(modalId).style.display = 'block';
-    document.getElementById('modal-overlay').style.display = 'block';
-    document.body.classList.add('modal-active');
-}
-
-// 모달 닫기
-function closeModal() {
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(modal => modal.style.display = 'none');
-    document.getElementById('modal-overlay').style.display = 'none';
-    document.body.classList.remove('modal-active');
-}
-
-// 로그인에서 회원가입으로 전환
-function switchToSignup() {
-    closeModal();
-    openModal('signup-modal');
-}
-
-// 회원가입에서 로그인으로 전환
-function switchToLogin() {
-    closeModal();
-    openModal('login-modal');
-}
-
-// 로그인 기능
-function login() {
-    const username = document.getElementById('login-username').value;
-    const password = document.getElementById('login-password').value;
-
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(user => user.username === username && user.password === password);
-
-    if (user) {
-        alert('로그인 성공!');
-        closeModal();
-        // 로그인 후 추가 작업 수행
-    } else {
-        alert('잘못된 사용자명 또는 비밀번호입니다.');
-    }
-}
-
-// 회원가입 기능
-function signup() {
-    const username = document.getElementById('signup-username').value;
-    const password = document.getElementById('signup-password').value;
-
-    if (!username || !password) {
-        alert('모든 필드를 채워주세요.');
-        return;
-    }
-
-    let users = JSON.parse(localStorage.getItem('users')) || [];
-    if (users.some(user => user.username === username)) {
-        alert('이미 존재하는 사용자명입니다.');
-        return;
-    }
-
-    users.push({ username, password });
-    localStorage.setItem('users', JSON.stringify(users));
-    alert('회원가입 성공! 로그인해주세요.');
-    switchToLogin();
-}
-
-
-
+        utteranc
