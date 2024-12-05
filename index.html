@@ -29,29 +29,6 @@
         <div class="api-key-input">
             <input type="text" placeholder="api_key 입력" style="padding: 8px;" id="input_key">
         </div>
-        <!-- 로그인 버튼 -->
-        <button onclick="openModal('login-modal')" class="loginBtn">로그인</button>
-
-        <!-- 모달 배경 -->
-        <div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
-
-        <!-- 로그인 모달 -->
-        <div class="modal" id="login-modal">
-            <h1>로그인</h1>
-            <input type="text" id="login-username" placeholder="아이디" required>
-            <input type="password" id="login-password" placeholder="비밀번호" required>
-            <button onclick="login()">로그인</button>
-            <p>아직 계정이 없으신가요? <a onclick="switchToSignup()">회원가입</a></p>
-        </div>
-
-        <!-- 회원가입 모달 -->
-        <div class="modal hidden" id="signup-modal">
-            <h1>회원가입</h1>
-            <input type="text" id="signup-username" placeholder="아이디" required>
-            <input type="password" id="signup-password" placeholder="비밀번호" required>
-            <button onclick="signup()">회원가입</button>
-            <p>이미 계정이 있으신가요? <a onclick="switchToLogin()">로그인</a></p>
-        </div>
     </div>
 
 
