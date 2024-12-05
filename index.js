@@ -163,4 +163,122 @@ function appendMessage(message, type) {
 function speakMessage(message) {
     if ('speechSynthesis' in window) {
         const utterance = new SpeechSynthesisUtterance(message);
-        utteranc
+        utterance.lang = 'ko-KR'; // 한국어 설정
+        utterance.rate = 1.0; // 말하기 속도 (0.1 ~ 10)
+        utterance.pitch = 0; // 톤 (0 ~ 2)
+        speechSynthesis.speak(utterance);
+    } else {
+        console.warn('이 브라우저는 음성 합성을 지원하지 않습니다.');
+    }
+}
+
+// 모달 열기
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = 'block';
+    document.getElementById('modal-overlay').style.display = 'block';
+    document.body.classList.add('modal-active');
+}
+
+// 모달 닫기
+function closeModal() {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => modal.style.display = 'none');
+    document.getElementById('modal-overlay').style.display = 'none';
+    document.body.classList.remove('modal-active');
+}
+
+// 로그인에서 회원가입으로 전환
+function switchToSignup() {
+    closeModal();
+    openModal('signup-modal');
+}
+
+// 회원가입에서 로그인으로 전환
+function switchToLogin() {
+    closeModal();
+    openModal('login-modal');
+}
+
+// 로그인 기능
+function login() {
+    const username = document.getElementById('login-username').value;
+    const password = document.getElementById('login-password').value;
+
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(user => user.username === username && user.password === password);
+
+    if (user) {
+        alert('로그인 성공!');
+        closeModal();
+        // 로그인 후 추가 작업 수행
+    } else {
+        alert('잘못된 사용자명 또는 비밀번호입니다.');
+    }
+}
+
+// 회원가입 기능
+function signup() {
+    const username = document.getElementById('signup-username').value;
+    const password = document.getElementById('signup-password').value;
+
+    if (!username || !password) {
+        alert('모든 필드를 채워주세요.');
+        return;
+    }
+
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    if (users.some(user => user.username === username)) {
+        alert('이미 존재하는 사용자명입니다.');
+        return;
+    }
+
+    users.push({ username, password });
+    localStorage.setItem('users', JSON.stringify(users));
+    alert('회원가입 성공! 로그인해주세요.');
+    switchToLogin();
+}
+
+import { loginEmail, signupEmail, loginGoogle } from './firebase.js';
+
+// 로그인 처리
+document.getElementById('login-btn').addventListener('click', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    loginEmail(email, password).then(user => {
+        console.log("로그인 성공:", user);
+        alert('로그인 성공!');
+        closeModal();
+    }).catch(error => {
+        console.error("로그인 실패:", error);
+    });
+});
+
+// 회원가입 처리
+document.getElementById('signup-btn').addEventListener('click', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('signup-email').value;
+    const password = document.getElementById('signup-password').value;
+
+    signupEmail(email, password).then(user => {
+        console.log("회원가입 성공:", user);
+        alert('회원가입 성공! 로그인해주세요.');
+        switchToLogin(); // 로그인 화면으로 전환
+    }).catch(error => {
+        console.error("회원가입 실패:", error);
+    });
+});
+
+// Google 로그인 처리
+document.getElementById('google-login-btn').addEventListener('click', (e) => {
+    e.preventDefault();
+
+    loginGoogle().then(user => {
+        console.log("Google 로그인 성공:", user);
+        alert('Google 로그인 성공!');
+        closeModal();
+    }).catch(error => {
+        console.error("Google 로그인 실패:", error);
+    });
+});
